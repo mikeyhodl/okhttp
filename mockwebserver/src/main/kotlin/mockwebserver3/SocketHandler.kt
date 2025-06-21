@@ -13,21 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mockwebserver3.internal.duplex
+package mockwebserver3
 
-import mockwebserver3.Stream
-import okhttp3.internal.http2.ErrorCode
-import okhttp3.internal.http2.Http2Stream
-import okio.buffer
+import okio.Socket
 
-/** Adapt OkHttp's internal [Http2Stream] type to the public [Stream] type. */
-internal class RealStream(
-  private val http2Stream: Http2Stream,
-) : Stream {
-  override val requestBody = http2Stream.getSource().buffer()
-  override val responseBody = http2Stream.getSink().buffer()
-
-  override fun cancel() {
-    http2Stream.closeLater(ErrorCode.CANCEL)
-  }
+/**
+ * Handles a call's request and response streams directly. Use this instead of [MockResponseBody] to
+ * begin sending response data before all request data has been received.
+ *
+ * See [okhttp3.RequestBody.isDuplex].
+ */
+public interface SocketHandler {
+  public fun handle(socket: Socket)
 }
