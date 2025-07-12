@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Square, Inc.
+ * Copyright (c) 2025 Block, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,12 +12,15 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
-package mockwebserver3.junit5.internal
+package okhttp.android.test
 
-import okhttp3.ExperimentalOkHttpApi
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
-@ExperimentalOkHttpApi
-annotation class MockWebServerInstance(
-  val name: String,
-)
+/**
+ * Android test running with only stubs.
+ */
+@RunWith(JUnit4::class)
+class NonRobolectricOkHttpClientTest : BaseOkHttpClientUnitTest()
